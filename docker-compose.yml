@@ -1,0 +1,15 @@
+mogodb:
+  image: 'mongo'
+myapp:
+  tty: true
+  image: 'application:latest'
+  labels:
+    kompose.service.type: nodeport
+  links:
+    - mogodb:mogodb
+  ports:
+    - 3000:3000
+  volumes:
+    - ../:/app
+  volumes:
+    - ../public:/app/public  

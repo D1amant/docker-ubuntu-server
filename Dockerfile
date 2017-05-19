@@ -10,6 +10,8 @@ RUN  apt-get -y install php7.0-fpm php7.0-mysql php7.0-curl php7.0-gd php7.0-int
 
 RUN apt-get install -y nodejs 
 
+RUN apt-get install -y composer
+
 RUN apt-get install -y npm
 
 EXPOSE 80
