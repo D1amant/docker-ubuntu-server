@@ -1,27 +1,32 @@
 FROM ubuntu
 
-RUN apt-get update && apt-get install -y nginx 
+RUN apt-get update
 
 RUN apt-get install -y unzip zip
 
-RUN  apt-get -y install php7.0-fpm php7.0-mysql php7.0-curl php7.0-gd php7.0-intl php-pear php-imagick php7.0-imap php7.0-mcrypt php-memcache  php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-mbstring php-mongodb
+RUN apt-get -y install php7.0
 
-RUN apt-get install -y nodejs 
+RUN  apt-get -y install php-pdo php-mysql php-curl php-gd php-intl php-pear php-imagick php-imap php-mcrypt php-memcache  php-pspell php-recode php-sqlite3 php-tidy php-xmlrpc php-xsl php-mbstring php-mongodb
+
+RUN apt-get install -y apache2 libapache2-mod-php7.0
+
+RUN a2enmod rewrite
 
 RUN apt-get install -y composer
 
-RUN composer create-project --prefer-dist laravel/laravel /var/www/html/laravel
+#RUN composer create-project --prefer-dist laravel/laravel /var/www/html/laravel
 
-RUN apt-get install -y npm
+#RUN apt-get install -y nodejs 
+#RUN apt-get install -y npm
 
+RUN mkdir -m 777 /var/www/html/laravel
+
+
+COPY 000-default.conf /etc/apache2/sites-enabled/
+COPY 000-default.conf /etc/apache2/sites-available/
+
+RUN service apache2 restart
+
+CMD ["/usr/sbin/apache2ctl" , "-D" , "FOREGROUND"]
 EXPOSE 80
 EXPOSE 8000
-
-
-ENTRYPOINT exec service nginx start
-ENTRYPOINT exec service php7.0-fpm start
-
-RUN chmod -R 777 /var/www/html/laravel
-
-COPY default /etc/nginx/sites-enable/
-COPY default /etc/nginx/sites-available/

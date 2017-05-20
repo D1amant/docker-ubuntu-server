@@ -1,15 +1,12 @@
 mogodb:
   image: 'mongo'
+  ports:
+      - 27017:27017
 myapp:
-  tty: true
-  image: 'application:latest'
-  labels:
-    kompose.service.type: nodeport
+  image: 'laravel:latest'
   links:
     - mogodb:mogodb
   ports:
-    - 3000:3000
+    - 80:80
   volumes:
-    - ../:/app
-  volumes:
-    - ../public:/app/public  
+    - ./laravel/:/var/www/html/laravel/
