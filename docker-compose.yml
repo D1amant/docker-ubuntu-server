@@ -9,4 +9,4 @@ myapp:
   ports:
     - 80:80
   volumes:
-    - ./laravel/:/var/www/html/laravel/
+    - ../:/var/www/html/laravel/
