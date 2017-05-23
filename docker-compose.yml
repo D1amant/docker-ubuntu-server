@@ -1,5 +1,7 @@
 mogodb:
   image: 'mongo'
+  volumes:
+      - ../database/files:/data/db
   ports:
       - 27017:27017
 myapp:
@@ -10,3 +12,4 @@ myapp:
     - 80:80
   volumes:
     - ../:/var/www/html/laravel/
+

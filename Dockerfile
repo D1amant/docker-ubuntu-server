@@ -21,6 +21,11 @@ RUN apt-get install -y composer
 
 RUN mkdir -m 777 /var/www/html/laravel
 
+RUN mkdir -m 777 /var/www/html/laravel/storage
+
+CMD mkdir -m 777 /var/www/html/laravel
+
+CMD mkdir -m 777 /var/www/html/laravel/storage
 
 COPY 000-default.conf /etc/apache2/sites-enabled/
 COPY 000-default.conf /etc/apache2/sites-available/
